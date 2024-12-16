@@ -8,6 +8,7 @@ const usernameLogin = document.querySelector('.usernameLogin');
 const passwordLogin = document.querySelector('.passwordLogin');
 const btnAdd = document.querySelector('.addItem');
 const sendItem = document.querySelector('.sendItem');
+const formItem = document.querySelector('.formItem');
 
 let token = null
 
@@ -47,6 +48,10 @@ function displayInterfaceList(){
     const list = document.querySelector('.navListCourses');
     list.style.display = 'flex';
     login.style.display = 'none';
+
+    const refresh = document.querySelector('.refresh');
+    refresh.removeEventListener('click', refreshList);
+    refresh.addEventListener('click', refreshList);
     whoami().then((res) => {
         console.log(res);
         const profil = document.querySelector('.profil');
@@ -64,13 +69,15 @@ function displayInterfaceList(){
     clearAll()
 }
 function displayListCourses(item){
-    const listCourses = document.querySelector('.navListCourses');
+    const listCourses = document.querySelector('.listCourses');
     const divItem = document.createElement('div');
+    divItem.setAttribute('data-id', item.id);
     const nameItems = document.createElement('p');
     const descriptionItems = document.createElement('p');
     const trash = document.createElement('p');
     const status = document.createElement('p');
 
+    listCourses.classList.add('listCourses');
     nameItems.innerHTML = item.name;
     nameItems.classList.add('nameItems');
     descriptionItems.innerHTML = item.description;
@@ -98,22 +105,44 @@ function displayListCourses(item){
     trash.addEventListener('click', () => {
         deleteFromList(item)
     })
+
 }
+function refreshList() {
+    console.log('vide')
+
+    const listContainer = document.querySelector('.listCourses');
+    listContainer.innerHTML = '';
+    getList().then(items => {
+
+        items.forEach(item => {
+            displayListCourses(item);
+        });
+    });
+}
+
+
+
 function deleteFromList(item){
     deleteItem(item.id).then((res)=>{
         console.log(res);
         if(res.success){
             const divItems = document.querySelectorAll('.divItem');
             divItems.forEach(divItem => {
+
                 console.log(divItem.getAttribute('data-id'));
                 if(divItem.getAttribute('data-id') == item.id){ //compare l'attribut data-id avec Id de l'item
                     divItem.remove();
+
+
                 }
+
             })
 
         }
     })
 }
+getList().then(data => console.log("Données récupérées :", data));
+
 function changeStatus(item, status){
     switchStatus(item.id).then((res) => {
         console.log(res);
@@ -124,6 +153,7 @@ function changeStatus(item, status){
             status.innerHTML = "acheté";
             status.style.color = 'green';
         }
+
     })
 }
 function btnAddToggle(){
@@ -132,7 +162,7 @@ function btnAddToggle(){
 
 
     btnAdd.addEventListener('click', ()=>{
-        const formItem = document.querySelector('.formItem');
+
         formItem.style.display = 'flex';
         sendItem.addEventListener('click', ()=>{
             addItemToList(nameAddItem.value, descriptionAddItem.value);
@@ -145,6 +175,7 @@ function btnAddToggle(){
 function addItemToList(nameAddItem, descriptionAddItem){
     getItem(nameAddItem, descriptionAddItem).then((responses) => {
         displayListCourses(responses);
+
     })
 }
 function clearForm(){
