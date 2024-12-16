@@ -41,12 +41,34 @@ function loginForm(){
     })
 }
 function displayInterfaceList(){
-    const list = document.querySelector('.listeCourses');
+    const list = document.querySelector('.navListCourses');
     list.style.display = 'flex';
     login.style.display = 'none';
     whoami().then((res) => {
+        console.log(res);
+        const profil = document.querySelector('.profil');
+        profil.innerHTML = res.username;
+    })
+    getList().then((responses) => {
+        console.log(responses);
+        responses.forEach((item) => {
+            displayListCourses(item)
+        })
 
     })
+}
+function displayListCourses(item){
+    const listCourses = document.querySelector('.navListCourses');
+    const divItem = document.createElement('div');
+    const nameItems = document.createElement('p');
+    const description = document.createElement('p');
+    nameItems.innerHTML = item.name;
+    description.innerHTML = item.description;
+    divItem.classList.add('divItem');
+    divItem.appendChild(nameItems);
+    divItem.appendChild(description);
+
+    listCourses.appendChild(divItem);
 }
 
 
@@ -109,8 +131,26 @@ async function whoami(){
         .then(response => response.json())
         .then(data => {
             console.log(data)
+            return data
 
         })
 }
+
+async function getList(){
+    let params ={
+        method:"GET",
+        headers:{
+            "Content-Type":"application/json",
+            "Authorization":`Bearer ${token}`
+        }
+    }
+    return await fetch("https://partiel-s1-b1dev-2425.esdlyon.dev/api/mylist", params)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            return data
+        })
+}
+
 
 
