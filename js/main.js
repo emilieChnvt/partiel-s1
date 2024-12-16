@@ -134,8 +134,6 @@ function refreshList() {
 
 }
 
-
-
 function deleteFromList(item){
     deleteItem(item.id).then((res)=>{
         console.log(res);
