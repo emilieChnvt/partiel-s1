@@ -6,8 +6,6 @@ const username = document.querySelector('.username');
 const password = document.querySelector('.password');
 const usernameLogin = document.querySelector('.usernameLogin');
 const passwordLogin = document.querySelector('.passwordLogin');
-const btnAdd = document.querySelector('.addItem');
-const sendItem = document.querySelector('.sendItem');
 
 
 
@@ -61,6 +59,7 @@ function displayInterfaceList(){
     const refresh = document.querySelector('.refresh');
     refresh.removeEventListener('click', refreshList);
     refresh.addEventListener('click', refreshList);
+
     whoami().then((res) => {
         console.log(res);
         const profil = document.querySelector('.profil');
@@ -72,9 +71,9 @@ function displayInterfaceList(){
         responses.forEach((item) => {
             displayListCourses(item)
         })
-
+        btnAddToggle()
     })
-    btnAddToggle()
+
     clearAll()
 }
 function displayListCourses(item){
@@ -170,8 +169,8 @@ function changeStatus(item, status){
     })
 }
 function btnAddToggle(){
-
-
+    const btnAdd = document.querySelector('.addItem');
+    const sendItem = document.querySelector('.sendItem');
     const formItem = document.querySelector('.formItem');
     const nameAddItem = document.querySelector('.nameAddItem');
     const descriptionAddItem = document.querySelector('.descriptionAddItem');
