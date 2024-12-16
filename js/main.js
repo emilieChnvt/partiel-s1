@@ -114,6 +114,7 @@ function btnAddToggle(){
         formItem.style.display = 'flex';
         sendItem.addEventListener('click', ()=>{
             addItemToList(nameAddItem.value, descriptionAddItem.value);
+            clearForm()
         })
 
     })
@@ -123,8 +124,15 @@ function addItemToList(nameAddItem, descriptionAddItem){
     getItem(nameAddItem, descriptionAddItem).then((responses) => {
         displayListCourses(responses);
     })
+}
+function clearForm(){
+    const nameAddItem = document.querySelector('.nameAddItem');
+    const descriptionAddItem = document.querySelector('.descriptionAddItem');
 
-
+    nameAddItem.value = '';
+    descriptionAddItem.value = '';
+    const formItem = document.querySelector('.formItem');
+    formItem.style.display = 'none';
 }
 if(!token){
    loginForm();
