@@ -61,19 +61,20 @@ function displayInterfaceList(){
 
     })
     btnAddToggle()
+    clearAll()
 }
 function displayListCourses(item){
     const listCourses = document.querySelector('.navListCourses');
     const divItem = document.createElement('div');
     const nameItems = document.createElement('p');
     const descriptionItems = document.createElement('p');
-    const deleteItem = document.createElement('p');
+    const trash = document.createElement('p');
     const status = document.createElement('p');
 
     nameItems.innerHTML = item.name;
     nameItems.classList.add('nameItems');
     descriptionItems.innerHTML = item.description;
-    deleteItem.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="black"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z"/></svg>`
+    trash.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="black"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z"/></svg>`
 
     if(item.status === false){
         status.innerHTML = "en attente";
@@ -87,12 +88,30 @@ function displayListCourses(item){
     divItem.appendChild(nameItems);
     divItem.appendChild(descriptionItems);
     divItem.appendChild(status);
-    divItem.appendChild(deleteItem);
+    divItem.appendChild(trash);
 
     listCourses.appendChild(divItem);
 
     status.addEventListener('click', () => {
         changeStatus(item, status);
+    })
+    trash.addEventListener('click', () => {
+        deleteFromList(item)
+    })
+}
+function deleteFromList(item){
+    deleteItem(item.id).then((res)=>{
+        console.log(res);
+        if(res.success){
+            const divItems = document.querySelectorAll('.divItem');
+            divItems.forEach(divItem => {
+                console.log(divItem.getAttribute('data-id'));
+                if(divItem.getAttribute('data-id') == item.id){ //compare l'attribut data-id avec Id de l'item
+                    divItem.remove();
+                }
+            })
+
+        }
     })
 }
 function changeStatus(item, status){
@@ -136,6 +155,12 @@ function clearForm(){
     descriptionAddItem.value = '';
     const formItem = document.querySelector('.formItem');
     formItem.style.display = 'none';
+}
+function clearAll(){
+    const clear = document.querySelector('.clearAll');
+    clear.addEventListener('click', ()=>{
+        getClean()
+    })
 }
 if(!token){
    loginForm();
@@ -240,7 +265,7 @@ async function deleteItem(id){
             "Authorization":`Bearer ${token}`
         }
     }
-    return await fetch('https://partiel-s1-b1dev-2425.esdlyon.dev/api/mylist/delete/15', params)
+    return await fetch(`https://partiel-s1-b1dev-2425.esdlyon.dev/api/mylist/delete/${id}`, params)
         .then(response => response.json())
         .then(data => {
             console.log(data)
@@ -261,6 +286,23 @@ async function getItem(nameAddItem, descriptionAddItem){
         })
     }
     return await fetch("https://partiel-s1-b1dev-2425.esdlyon.dev/api/mylist/new", params)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            return data
+        })
+
+}
+async function getClean(){
+    let params ={
+        method:"DELETE",
+        headers:{
+            "Content-Type":"application/json",
+            "Authorization":`Bearer ${token}`
+        },
+
+    }
+    return await fetch("https://partiel-s1-b1dev-2425.esdlyon.dev/api/mylist/clear", params)
         .then(response => response.json())
         .then(data => {
             console.log(data)
