@@ -1,3 +1,4 @@
+
 const register = document.querySelector('.register');
 const login = document.querySelector('.login');
 
@@ -6,7 +7,7 @@ const password = document.querySelector('.password');
 const usernameLogin = document.querySelector('.usernameLogin');
 const passwordLogin = document.querySelector('.passwordLogin');
 
-let account = false;
+
 let token = null
 
 
@@ -83,8 +84,23 @@ function displayListCourses(item){
     divItem.appendChild(status);
 
     listCourses.appendChild(divItem);
-}
 
+    status.addEventListener('click', () => {
+        changeStatus(item, status);
+    })
+}
+function changeStatus(item, status){
+    switchStatus(item.id).then((res) => {
+        console.log(res);
+        if(res.status === false){
+            status.innerHTML = "en attente";
+            status.style.color = 'red';
+        }else{
+            status.innerHTML = "acheté";
+            status.style.color = 'green';
+        }
+    })
+}
 
 if(!token){
    loginForm();
@@ -123,7 +139,7 @@ async function getToken(usernameLogin, passwordLogin) {
 
         })
     }
-    return await fetch(" https://partiel-s1-b1dev-2425.esdlyon.dev/api/login", params)
+    return await fetch("https://partiel-s1-b1dev-2425.esdlyon.dev/api/login", params)
         .then(response => response.json())
         .then(data => {
             console.log(data)
@@ -165,6 +181,42 @@ async function getList(){
             return data
         })
 }
+
+async function switchStatus(){
+    let params ={
+        method:"PATCH",
+        headers:{
+            "Content-Type":"application/json",
+            "Authorization":`Bearer ${token}`
+        }
+    }
+    return await fetch(`https://partiel-s1-b1dev-2425.esdlyon.dev/api/mylist/switchstatus/${id}`, params)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            return data
+        })
+}
+async function deleteItem(id){
+    let params ={
+        method:"DELETE",
+        headers:{
+            "Content-Type":"application/json",
+            "Authorization":`Bearer ${token}`
+        }
+    }
+    return await fetch('https://partiel-s1-b1dev-2425.esdlyon.dev/api/mylist/delete/15', params)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+        })
+}
+
+
+
+
+
+
 
 
 
