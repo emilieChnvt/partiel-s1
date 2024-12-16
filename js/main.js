@@ -171,12 +171,14 @@ function changeStatus(item, status){
 function btnAddToggle(){
     const btnAdd = document.querySelector('.addItem');
     const sendItem = document.querySelector('.sendItem');
-    const formItem = document.querySelector('.formItem');
+
     const nameAddItem = document.querySelector('.nameAddItem');
     const descriptionAddItem = document.querySelector('.descriptionAddItem');
 
 
     btnAdd.addEventListener('click', ()=>{
+        console.log('salut')
+        const formItem = document.querySelector('.formItem');
         formItem.style.display = 'flex';
     })
     sendItem.addEventListener('click', ()=>{
