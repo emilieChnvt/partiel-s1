@@ -6,6 +6,7 @@ const username = document.querySelector('.username');
 const password = document.querySelector('.password');
 const usernameLogin = document.querySelector('.usernameLogin');
 const passwordLogin = document.querySelector('.passwordLogin');
+const btnAdd = document.querySelector('.addItem');
 
 
 let token = null
@@ -59,6 +60,7 @@ function displayInterfaceList(){
         })
 
     })
+    addItemToList()
 }
 function displayListCourses(item){
     const listCourses = document.querySelector('.navListCourses');
@@ -99,6 +101,13 @@ function changeStatus(item, status){
             status.innerHTML = "acheté";
             status.style.color = 'green';
         }
+    })
+}
+function addItemToList(){
+    btnAdd.addEventListener('click', ()=>{
+        addItem().then((res)=>{
+
+        })
     })
 }
 
@@ -209,8 +218,30 @@ async function deleteItem(id){
         .then(response => response.json())
         .then(data => {
             console.log(data)
+            return data
         })
+
 }
+async function addItem(){
+    let params ={
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json",
+            "Authorization":`Bearer ${token}`
+        },
+        body:JSON.stringify({
+            name : "patate"
+        })
+    }
+    return await fetch("https://partiel-s1-b1dev-2425.esdlyon.dev/api/mylist/new", params)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            return data
+        })
+
+}
+
 
 
 
