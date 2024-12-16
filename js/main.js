@@ -64,11 +64,16 @@ function displayListCourses(item){
     const divItem = document.createElement('div');
     const nameItems = document.createElement('p');
     const description = document.createElement('p');
+    const status = document.createElement('p');
     nameItems.innerHTML = item.name;
+    nameItems.classList.add('nameItems');
     description.innerHTML = item.description;
+    status.innerHTML = item.status;
+
     divItem.classList.add('divItem');
     divItem.appendChild(nameItems);
     divItem.appendChild(description);
+    divItem.appendChild(status);
 
     listCourses.appendChild(divItem);
 }

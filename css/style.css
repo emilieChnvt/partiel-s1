@@ -5,12 +5,17 @@
 .containerAccount{
 
 }
+.nameItems{
+    font-size: 25px;
+}
 
 .signIn, .signUp{
     width: fit-content;
 }
 
 .divItem{
-
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
