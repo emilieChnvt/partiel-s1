@@ -2,6 +2,9 @@
     display: none;
     width: 300px;
 }
+.containerAccount{
+
+}
 
 .signIn, .signUp{
     width: fit-content;

@@ -41,7 +41,7 @@ function loginForm(){
     })
 }
 function displayInterfaceList(){
-    if(!token){return}
+
     const list = document.querySelector('.navListCourses');
     list.style.display = 'flex';
     login.style.display = 'none';

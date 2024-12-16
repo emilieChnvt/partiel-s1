@@ -9,26 +9,28 @@
 </head>
 <body>
 <div class="container">
-    <div class="register bg-secondary rounded-1  p-5 flex-column w-50">
-        <input type="text" class="username rounded-1  py-2" placeholder="Enter a username">
-        <input type="password" class="password rounded-1  py-2 " placeholder="Enter a password">
-        <button class="signUp rounded-1 ">Sign up</button>
-    </div>
-    <div class="login bg-secondary p-5 rounded-1 gap-3 flex-column align-items-center w-50">
-        <input type="text" class="usernameLogin  py-2 rounded-1" placeholder="Enter your username">
-        <input type="password" class="passwordLogin   py-2 rounded-1" placeholder="Enter your password">
-        <button class="signIn  rounded-1">Log In</button>
+    <div class="containerAccount d-flex align-items-center justify-content-center ">
+        <div class="register bg-warning p-5 rounded-1  p-5 gap-3 flex-column align-items-center w-50 mt-5">
+            <input type="text" class="username rounded-1  py-2" placeholder="Enter a username">
+            <input type="password" class="password rounded-1  py-2 " placeholder="Enter a password">
+            <button class="btn signUp rounded-1 ">Sign up</button>
+        </div>
+        <div class="login bg-warning p-5 rounded-1 gap-3 flex-column align-items-center w-50 mt-5">
+            <input type="text" class="usernameLogin  py-2 rounded-1" placeholder="Enter your username">
+            <input type="password" class="passwordLogin   py-2 rounded-1" placeholder="Enter your password">
+            <button class="signIn  rounded-1">Log In</button>
+        </div>
     </div>
 
-    <div class="navListCourses  flex-column w-100">
-        <nav class="w-100 d-flex py-4  bg-body-tertiary">
+    <div class="navListCourses   flex-column w-100">
+        <nav class="w-100 mb-5 d-flex py-4  bg-body-tertiary">
             <div class=" px-2 navBarList w-100 d-flex justify-content-between ">
                 <a class="navbar-brand fs-3">My Shopping List</a>
                 <div class="profil fs-4">
                 </div>
             </div>
         </nav>
-        <div class="listCourses">
+        <div class="listCourses border mt-5 px-2">
 
         </div>
     </div>
