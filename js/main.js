@@ -174,7 +174,10 @@ function btnAddToggle(){
 
 function addItemToList(nameAddItem, descriptionAddItem){
     getItem(nameAddItem, descriptionAddItem).then((responses) => {
-        displayListCourses(responses);
+        if(responses && responses.name){
+            displayListCourses(responses);
+        }
+
 
     })
 }
