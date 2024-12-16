@@ -8,9 +8,6 @@ const usernameLogin = document.querySelector('.usernameLogin');
 const passwordLogin = document.querySelector('.passwordLogin');
 const btnAdd = document.querySelector('.addItem');
 const sendItem = document.querySelector('.sendItem');
-const nameAddItem = document.querySelector('.nameAddItem');
-const descriptionAddItem = document.querySelector('.descriptionAddItem');
-
 
 let token = null
 
@@ -108,22 +105,25 @@ function changeStatus(item, status){
     })
 }
 function btnAddToggle(){
+    const nameAddItem = document.querySelector('.nameAddItem');
+    const descriptionAddItem = document.querySelector('.descriptionAddItem');
+
+
     btnAdd.addEventListener('click', ()=>{
         const formItem = document.querySelector('.formItem');
         formItem.style.display = 'flex';
-        addToList()
+        sendItem.addEventListener('click', ()=>{
+            addItemToList(nameAddItem.value, descriptionAddItem.value);
+        })
 
     })
 }
 
-function addToList(){
-    sendItem.addEventListener('click', ()=>{
-        getItem(nameAddItem.value, descriptionAddItem.value).then((res)=>{
-            console.log(res);
-
-        })
-
+function addItemToList(nameAddItem, descriptionAddItem){
+    getItem(nameAddItem, descriptionAddItem).then((responses) => {
+        displayListCourses(responses);
     })
+
 
 }
 if(!token){
