@@ -134,6 +134,7 @@ function deleteFromList(item){
                     divItem.remove();
 
 
+
                 }
 
             })
@@ -141,7 +142,6 @@ function deleteFromList(item){
         }
     })
 }
-getList().then(data => console.log("Données récupérées :", data));
 
 function changeStatus(item, status){
     switchStatus(item.id).then((res) => {
@@ -190,7 +190,9 @@ function clearForm(){
 function clearAll(){
     const clear = document.querySelector('.clearAll');
     clear.addEventListener('click', ()=>{
-        getClean()
+        getClean().then((data)=>{
+            refreshList()
+        })
     })
 }
 if(!token){
