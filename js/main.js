@@ -7,6 +7,8 @@ const password = document.querySelector('.password');
 const usernameLogin = document.querySelector('.usernameLogin');
 const passwordLogin = document.querySelector('.passwordLogin');
 const btnAdd = document.querySelector('.addItem');
+const sendItem = document.querySelector('.sendItem');
+
 
 
 let token = null
@@ -130,6 +132,7 @@ function refreshList() {
 
         });
     });
+
 }
 
 
@@ -167,7 +170,8 @@ function changeStatus(item, status){
     })
 }
 function btnAddToggle(){
-    const sendItem = document.querySelector('.sendItem');
+
+
     const formItem = document.querySelector('.formItem');
     const nameAddItem = document.querySelector('.nameAddItem');
     const descriptionAddItem = document.querySelector('.descriptionAddItem');

@@ -10,15 +10,16 @@
 <body>
 <div class="container">
     <div class="containerAccount d-flex align-items-center justify-content-center ">
-        <div class="register bg-warning p-5 rounded-1  p-5 gap-3 flex-column align-items-center w-50 mt-5">
-            <input type="text" class="username rounded-1  py-2" placeholder="Enter a username">
-            <input type="password" class="password rounded-1  py-2 " placeholder="Enter a password">
-            <button class="btn signUp rounded-1 ">Sign up</button>
+        <div class="register bg-warning p-5 rounded-1  p-5 gap-3 flex-column align-items-center w-75 mt-5" id="register">
+            <input type="text" class="username form-control form-control-sm rounded-1  py-2" placeholder="Enter a username">
+            <input type="password" class="password  form-control form-control-sm rounded-1  py-2 " placeholder="Enter a password">
+            <button class="btn signUp rounded-1 btn btn-light">Sign up</button>
         </div>
-        <div class="login  p-5 rounded-1 gap-3 flex-column align-items-center w-50 mt-5">
-            <input type="text" class="usernameLogin  py-2 rounded-1" placeholder="Enter your username">
-            <input type="password" class="passwordLogin   py-2 rounded-1" placeholder="Enter your password">
-            <button class="signIn  rounded-1">Log In</button>
+        <div class="login  p-5 rounded-1 gap-3 flex-column align-items-center w-75 mt-5">
+            <input type="text" class="usernameLogin form-control form-control-sm  py-2 rounded-1" placeholder="Enter your username">
+            <input type="password" class="passwordLogin  form-control form-control-sm py-2 rounded-1" placeholder="Enter your password">
+            <button class="signIn  rounded-1 btn btn-light">Log In</button>
+            <p  class="signUpLink text-primary ">Sign Up</p>
         </div>
     </div>
 
@@ -36,13 +37,13 @@
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="refresh"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M125.7 160l50.3 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L48 224c-17.7 0-32-14.3-32-32L16 64c0-17.7 14.3-32 32-32s32 14.3 32 32l0 51.2L97.6 97.6c87.5-87.5 229.3-87.5 316.8 0s87.5 229.3 0 316.8s-229.3 87.5-316.8 0c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0c62.5 62.5 163.8 62.5 226.3 0s62.5-163.8 0-226.3s-163.8-62.5-226.3 0L125.7 160z"/></svg>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="clearAll"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z"/></svg>
             </div>
-            </div>
+        </div>
         <div class="listCourses d-flex flex-column align-items-center justify-content-center mt-5 px-2">
 
             <div class=" formItem align-items-center gap-3 rounded-1 flex-column border p-5 mb-5">
                 <input type="text" class="nameAddItem" placeholder="Item">
                 <input type="text" class="descriptionAddItem" placeholder="Description">
-                <button class="sendItem">Add</button>
+                <button class="sendItem btn btn-light">Add</button>
             </div>
 
         </div>
