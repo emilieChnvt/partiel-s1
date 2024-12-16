@@ -1,3 +1,13 @@
-.register, .login{
+.register, .login, .navListCourses{
     display: none;
+    width: 300px;
 }
+
+.signIn, .signUp{
+    width: fit-content;
+}
+
+.divItem{
+
+}
+

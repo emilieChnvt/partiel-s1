@@ -41,6 +41,7 @@ function loginForm(){
     })
 }
 function displayInterfaceList(){
+    if(!token){return}
     const list = document.querySelector('.navListCourses');
     list.style.display = 'flex';
     login.style.display = 'none';
@@ -49,6 +50,7 @@ function displayInterfaceList(){
         const profil = document.querySelector('.profil');
         profil.innerHTML = res.username;
     })
+
     getList().then((responses) => {
         console.log(responses);
         responses.forEach((item) => {
