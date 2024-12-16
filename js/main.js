@@ -7,6 +7,9 @@ const password = document.querySelector('.password');
 const usernameLogin = document.querySelector('.usernameLogin');
 const passwordLogin = document.querySelector('.passwordLogin');
 const btnAdd = document.querySelector('.addItem');
+const sendItem = document.querySelector('.sendItem');
+const nameAddItem = document.querySelector('.nameAddItem');
+const descriptionAddItem = document.querySelector('.descriptionAddItem');
 
 
 let token = null
@@ -60,17 +63,18 @@ function displayInterfaceList(){
         })
 
     })
-    addItemToList()
+    btnAddToggle()
 }
 function displayListCourses(item){
     const listCourses = document.querySelector('.navListCourses');
     const divItem = document.createElement('div');
     const nameItems = document.createElement('p');
-    const description = document.createElement('p');
+    const descriptionItems = document.createElement('p');
     const status = document.createElement('p');
+
     nameItems.innerHTML = item.name;
     nameItems.classList.add('nameItems');
-    description.innerHTML = item.description;
+    descriptionItems.innerHTML = item.description;
 
     if(item.status === false){
         status.innerHTML = "en attente";
@@ -82,7 +86,7 @@ function displayListCourses(item){
 
     divItem.classList.add('divItem');
     divItem.appendChild(nameItems);
-    divItem.appendChild(description);
+    divItem.appendChild(descriptionItems);
     divItem.appendChild(status);
 
     listCourses.appendChild(divItem);
@@ -103,14 +107,25 @@ function changeStatus(item, status){
         }
     })
 }
-function addItemToList(){
+function btnAddToggle(){
     btnAdd.addEventListener('click', ()=>{
-        addItem().then((res)=>{
+        const formItem = document.querySelector('.formItem');
+        formItem.style.display = 'flex';
+        addToList()
 
-        })
     })
 }
 
+function addToList(){
+    sendItem.addEventListener('click', ()=>{
+        getItem(nameAddItem.value, descriptionAddItem.value).then((res)=>{
+            console.log(res);
+
+        })
+
+    })
+
+}
 if(!token){
    loginForm();
 }
@@ -191,7 +206,7 @@ async function getList(){
         })
 }
 
-async function switchStatus(){
+async function switchStatus(id){
     let params ={
         method:"PATCH",
         headers:{
@@ -222,7 +237,7 @@ async function deleteItem(id){
         })
 
 }
-async function addItem(){
+async function getItem(nameAddItem, descriptionAddItem){
     let params ={
         method:"POST",
         headers:{
@@ -230,7 +245,8 @@ async function addItem(){
             "Authorization":`Bearer ${token}`
         },
         body:JSON.stringify({
-            name : "patate"
+            name : nameAddItem,
+            description : descriptionAddItem
         })
     }
     return await fetch("https://partiel-s1-b1dev-2425.esdlyon.dev/api/mylist/new", params)

@@ -1,4 +1,4 @@
-.register, .login, .navListCourses{
+.register, .login, .navListCourses, .formItem{
     display: none;
     width: 300px;
 }
