@@ -68,7 +68,14 @@ function displayListCourses(item){
     nameItems.innerHTML = item.name;
     nameItems.classList.add('nameItems');
     description.innerHTML = item.description;
-    status.innerHTML = item.status;
+
+    if(item.status === false){
+        status.innerHTML = "en attente";
+        status.style.color = 'red';
+    }else{
+        status.innerHTML = "acheté";
+        status.style.color = 'green';
+    }
 
     divItem.classList.add('divItem');
     divItem.appendChild(nameItems);
