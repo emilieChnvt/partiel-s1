@@ -3,6 +3,8 @@ const login = document.querySelector('.login');
 
 const username = document.querySelector('.username');
 const password = document.querySelector('.password');
+const usernameLogin = document.querySelector('.usernameLogin');
+const passwordLogin = document.querySelector('.passwordLogin');
 
 let account = false;
 let token = null
@@ -25,18 +27,32 @@ function loginForm(){
     register.style.display = 'none';
     login.style.display = 'flex';
     document.querySelector('.signIn').addEventListener('click', () => {
-        getToken(username.value, password.value)
+        getToken(usernameLogin.value, passwordLogin.value)
             .then((res) => {
-                console.log(res);
+                if(res){
+                    console.log(res);
+                    displayInterfaceList()
+                }
+
+
+
+
             })
     })
 }
-loginForm()
+function displayInterfaceList(){
+    const list = document.querySelector('.listeCourses');
+    list.style.display = 'flex';
+    login.style.display = 'none';
+    whoami().then((res) => {
+
+    })
+}
 
 
-//if(!account){
-   // createAccount();
-//}
+if(!token){
+   loginForm();
+}
 
 
 // FETCH
@@ -59,15 +75,15 @@ async function registerForm(username, password){
         })
 }
 
-async function getToken(username, password) {
+async function getToken(usernameLogin, passwordLogin) {
     let params ={
         method:"POST",
         headers:{
             "Content-Type":"application/json"
         },
         body:JSON.stringify({
-            username: "emilie",
-            password: "ghjklmwx",
+            username: usernameLogin,
+            password: passwordLogin,
 
         })
     }
@@ -79,4 +95,22 @@ async function getToken(username, password) {
             return token
         })
 }
+
+async function whoami(){
+    let params ={
+        method:"GET",
+        headers:{
+            "Content-Type":"application/json",
+            "Authorization":`Bearer ${token}`
+        }
+
+    }
+    return await fetch(" https://partiel-s1-b1dev-2425.esdlyon.dev/api/whoami", params)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+
+        })
+}
+
 
