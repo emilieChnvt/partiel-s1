@@ -4,8 +4,9 @@
 }
 .register, .login, .formItem{
     background-color: #cd4c4c;
-    width: fit-content;
+
 }
+
 .navBar{
     background-color: #cd4c4c;
 }

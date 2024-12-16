@@ -7,8 +7,7 @@ const password = document.querySelector('.password');
 const usernameLogin = document.querySelector('.usernameLogin');
 const passwordLogin = document.querySelector('.passwordLogin');
 const btnAdd = document.querySelector('.addItem');
-const sendItem = document.querySelector('.sendItem');
-const formItem = document.querySelector('.formItem');
+
 
 let token = null
 
@@ -17,7 +16,10 @@ let token = null
 
 function createAccount(){
     register.style.display = 'flex';
+    login.style.display = 'none';
+
     const signUp = document.querySelector('.signUp');
+
     signUp.addEventListener('click', () => {
         registerForm(username.value, password.value)
             .then((res) => {
@@ -29,6 +31,11 @@ function createAccount(){
 function loginForm(){
     register.style.display = 'none';
     login.style.display = 'flex';
+
+    const  signUp = document.querySelector('.signUpLink');
+    signUp.addEventListener('click', () => {
+        createAccount();
+    })
     document.querySelector('.signIn').addEventListener('click', () => {
         getToken(usernameLogin.value, passwordLogin.value)
             .then((res) => {
@@ -69,15 +76,19 @@ function displayInterfaceList(){
     clearAll()
 }
 function displayListCourses(item){
+
     const listCourses = document.querySelector('.listCourses');
+
     const divItem = document.createElement('div');
     divItem.setAttribute('data-id', item.id);
+
     const nameItems = document.createElement('p');
     const descriptionItems = document.createElement('p');
     const trash = document.createElement('p');
     const status = document.createElement('p');
 
     listCourses.classList.add('listCourses');
+
     nameItems.innerHTML = item.name;
     nameItems.classList.add('nameItems');
     descriptionItems.innerHTML = item.description;
@@ -116,6 +127,7 @@ function refreshList() {
 
         items.forEach(item => {
             displayListCourses(item);
+
         });
     });
 }
@@ -132,15 +144,13 @@ function deleteFromList(item){
                 console.log(divItem.getAttribute('data-id'));
                 if(divItem.getAttribute('data-id') == item.id){ //compare l'attribut data-id avec Id de l'item
                     divItem.remove();
-
-
-
                 }
 
             })
 
         }
     })
+    refreshList()
 }
 
 function changeStatus(item, status){
@@ -157,28 +167,32 @@ function changeStatus(item, status){
     })
 }
 function btnAddToggle(){
+    const sendItem = document.querySelector('.sendItem');
+    const formItem = document.querySelector('.formItem');
     const nameAddItem = document.querySelector('.nameAddItem');
     const descriptionAddItem = document.querySelector('.descriptionAddItem');
 
 
     btnAdd.addEventListener('click', ()=>{
-
         formItem.style.display = 'flex';
-        sendItem.addEventListener('click', ()=>{
-            addItemToList(nameAddItem.value, descriptionAddItem.value);
-            clearForm()
-        })
-
+    })
+    sendItem.addEventListener('click', ()=>{
+        addItemToList(nameAddItem.value, descriptionAddItem.value);
+        clearForm()
     })
 }
 
 function addItemToList(nameAddItem, descriptionAddItem){
     getItem(nameAddItem, descriptionAddItem).then((responses) => {
-        if(responses && responses.name){
+        if(!responses && responses.name.value){
+            alert('Add a name to your item')
+        }
+        if(responses && responses.name.value){
             displayListCourses(responses);
+
         }
 
-
+refreshList()
     })
 }
 function clearForm(){
@@ -198,6 +212,7 @@ function clearAll(){
         })
     })
 }
+
 if(!token){
    loginForm();
 }
@@ -345,6 +360,25 @@ async function getClean(){
             return data
         })
 
+}
+async function edit(){
+    let params ={
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json",
+            "Authorization":`Bearer ${token}`
+        },
+        body:JSON.stringify({
+
+        })
+
+    }
+    return await fetch("https://partiel-s1-b1dev-2425.esdlyon.dev/api/mylist/clear", params)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            return data
+        })
 }
 
 
